@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>US 2040 | An informal forecast</title>
+<style>
+:root{--navy:#122e39;--muted:#5a727b;--line:#cad9db;--accent:#007e79;--paper:#fff;--bg:#f4f7f7;--gold:#be6d30;--purple:#6f52c8;--rose:#c84b7d}
+*{box-sizing:border-box}body{margin:0;color:var(--navy);background:var(--bg);font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+main{max-width:1400px;margin:0 auto;padding:24px 24px 56px}header{margin:0 0 20px}.eyebrow{color:var(--accent);font-size:11px;letter-spacing:1.7px;font-weight:800;text-transform:uppercase}h1{font-size:clamp(24px,3vw,34px);letter-spacing:-.9px;margin:6px 0 5px;line-height:1.17}header p{max-width:980px;margin:5px 0;color:var(--muted)}
+.layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(350px,.85fr);gap:18px;align-items:start}
+.card{background:var(--paper);border:1px solid #dce7e8;border-radius:15px;box-shadow:0 4px 18px #14353a0c}
+.chart-card{padding:20px 24px 22px}.card-heading{display:flex;justify-content:space-between;gap:6px;align-items:center;margin-bottom:16px}.smallcaps{font-weight:800;font-size:10px;letter-spacing:1.35px;text-transform:uppercase;color:var(--accent)}.mininote{font-size:11px;color:var(--muted)}
+.chart-area{display:grid;grid-template-columns:26px 26px 1fr;gap:0;align-items:stretch}.ytitle{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:750;letter-spacing:1.4px;color:#345661;display:flex;align-items:center;justify-content:center}.yends{display:flex;flex-direction:column;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;color:#607983;padding-bottom:3px}
+.plot-wrap{min-width:0}.plot{aspect-ratio:1;width:100%;position:relative;background:linear-gradient(137deg,#f9fbfb,#eff5f4);border-left:2px solid #456770;border-bottom:2px solid #456770}.plot:before{content:"";position:absolute;z-index:5;top:-4px;left:-5px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid #456770}.plot:after{content:"";position:absolute;z-index:5;bottom:-5px;right:-4px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid #456770}
+.hitlayer{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));position:absolute;inset:0;z-index:3}.region{background:transparent;border:0;padding:0;cursor:crosshair;position:relative;min-width:0;min-height:0}.region:hover,.region.active{background:#0b817719}.region:focus-visible{outline:3px solid #007e79;outline-offset:-3px}
+.pins{position:absolute;inset:0;z-index:4;pointer-events:none}.pin{position:absolute;width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 8px #142e4475;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center}.pin.mine{background:var(--accent);width:22px;height:22px}.pin.assistant{background:var(--purple);width:20px;height:20px}.pin.other{background:var(--gold)}.pin span{font-size:9px;color:white;line-height:1;font-weight:850}
+.xends{display:flex;justify-content:space-between;color:#607983;font-size:11px;font-weight:750;margin-top:8px}.xtitle{text-align:center;margin-top:4px;color:#345661;font-weight:800;font-size:11px;letter-spacing:1.35px}
+.axis-guide{border-top:1px solid #e4eceb;margin-top:18px;padding-top:12px;color:var(--muted);font-size:12px;line-height:1.6}.axis-guide strong{color:#21444e}
+.legend{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:15px 0 0;font-size:11px;color:#526d76}.dot{display:inline-block;border-radius:50%;width:11px;height:11px;vertical-align:-1px;margin-right:4px;background:var(--accent)}.dot.other{background:var(--gold)}.dot.assistant{background:var(--purple)}
+.side{display:grid;gap:15px}.detail{padding:22px 24px;min-height:300px}.detail h2{font-size:clamp(19px,2vw,24px);line-height:1.23;margin:12px 0 4px;letter-spacing:-.3px}.detail .meta{font-size:11px;color:#657d85;font-weight:700;margin:4px 0 13px}.detail ol{padding-left:21px;display:grid;gap:10px;margin:0}.detail li{font-size:13px;line-height:1.55;color:#2b4953;padding-left:2px}.detail li::marker{color:var(--accent);font-weight:800}.intro{margin:32px 0 25px;color:#617982;font-size:14px;line-height:1.7}
+.controls{padding:19px 23px 21px}.controls h3{font-size:15px;margin:0 0 12px}.row{display:flex;gap:9px;align-items:end;flex-wrap:wrap}.group{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}.group.wide{flex:2}.group label{font-size:11px;color:#53717c;font-weight:750}[hidden]{display:none!important}
+input,select,textarea{border:1px solid #cbdade;border-radius:8px;background:#fff;font:inherit;font-size:13px;color:var(--navy);padding:9px 10px;min-width:0;width:100%}input,select{height:38px}textarea{min-height:68px;resize:vertical}input:focus,select:focus,textarea:focus{outline:2px solid #71beb7;outline-offset:0}
+button.action{cursor:pointer;background:var(--accent);color:#fff;border:1px solid var(--accent);border-radius:8px;padding:9px 11px;font:inherit;font-size:12px;font-weight:750;min-height:38px}button.action:hover{background:#05675f}button.action.secondary{background:#fff;color:#145f5c;border-color:#b6d0cc}button.action.secondary:hover{background:#edf7f6}button.action.danger{color:#8e3631;border-color:#ebcfc9}
+.thin{border-top:1px solid #e7eeee;margin:15px 0}.record-list{font-size:12px;color:#4e6972;max-height:250px;overflow:auto;margin:9px 0 3px;padding:0;list-style:none}.record-list li{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:start;padding:8px 0;border-bottom:1px solid #f0f3f3}.record-main{min-width:0}.record-label{font-weight:700;color:#26444d}.record-meta{font-size:11px;color:#6a828a}.record-note{font-size:11px;color:#45606a;white-space:pre-wrap}.record-actions{display:flex;gap:6px}.record-actions button{cursor:pointer;border:0;background:transparent;color:#bd4941;font-weight:700;font-size:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.hint{font-size:11px;color:#637b82;margin:10px 0 0}footer{margin:18px 1px 0;font-size:11px;color:#789099;line-height:1.6}.notice{margin:12px 0 0;font-size:11px;color:#126759;min-height:17px}
+.summary{padding:18px 22px}.summary h3{margin:0 0 10px;font-size:15px}.summary-grid{display:grid;gap:10px}.summary-item{border:1px solid #e4eceb;border-radius:10px;padding:10px 11px;background:#fbfdfd}.summary-item strong{display:block;font-size:12px;color:#26444d}.summary-item span{display:block;font-size:11px;color:#5d747d;margin-top:2px}
+@media(max-width:940px){.layout{grid-template-columns:1fr}.side{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.detail{min-height:0}}@media(max-width:700px){main{padding:18px 12px 36px}.side{grid-template-columns:1fr}.chart-card{padding:15px 13px 16px}.detail,.controls,.summary{padding:16px}.chart-area{grid-template-columns:18px 19px 1fr}.ytitle,.xtitle{font-size:10px}.yends,.xends{font-size:10px}}
+@media print{body{background:#fff}footer,.controls,.detail{display:none}main{padding:0}.chart-card,.summary{border:0;box-shadow:none}.layout{display:block}}
+
+/* Clearly exposed, repeated respondent-entry workflow */
+.cta-link{border-radius:9px;border:1px solid #8fb9b4;color:#006c65;background:#eaf7f5;font-weight:800;font-size:13px;cursor:pointer;padding:10px 15px}
+.cta-link:hover{background:#d8f0ed}
+.header-line{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.header-buttons{display:flex;flex-wrap:wrap;gap:8px}
+.respondent-card{border:2px solid #b7dad5;background:#fcfefe}
+.respondent-card .primary-add{display:block;width:100%;font-weight:800;font-size:14px;min-height:44px;margin-top:12px}
+.respondent-card .notice{min-height:20px}
+.respondent-card .row{margin-top:10px}
+.respondent-card h3{display:flex;justify-content:space-between;align-items:center}
+.respondent-card .counter{display:inline-block;color:#13675f;background:#e4f4f1;padding:2px 9px;border-radius:20px;font-size:11px}
+
+.source-panel{margin:10px 0 4px;padding:12px 13px;border:1px solid #b6d0cc;border-radius:10px;background:#f6fbfa;font-size:12px;color:#25434e}
+.source-panel p{margin:5px 0 10px;color:#506d76;line-height:1.5}
+.source-panel textarea{height:120px;width:100%;font:11px/1.4 ui-monospace,SFMono-Regular,monospace;background:#fff;white-space:pre;overflow:auto;resize:vertical}
+.source-panel .actions{margin-top:9px}
+
+/* Public poll view: one visitor, no existing respondent history. */
+.public-form{padding:21px 24px 23px}.public-form h3{font-size:17px;margin:0 0 6px}
+.form-sub{color:#56707a;font-size:12px;margin:0 0 16px;line-height:1.55}
+.field-stack{display:grid;gap:12px}.field-stack label{display:block;font-size:12px;font-weight:750;color:#45616c;margin-bottom:5px}
+.field-stack select,.field-stack input,.field-stack textarea{font-size:14px;width:100%}
+.field-stack textarea{min-height:90px}.send-options{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
+.send-options a.action{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;color:#145f5c;border:1px solid #b6d0cc;border-radius:8px;padding:9px 11px;font-size:12px;font-weight:750;min-height:38px}.send-options a.action:hover{background:#edf7f6}
+.send-options .action{flex:1;min-width:122px;text-align:center}
+.public-summary{padding:19px 23px}.public-summary h3{margin:0 0 8px;font-size:16px}
+.public-summary p{font-size:13px;color:#516c75;margin:7px 0;line-height:1.6}
+.public-summary .selected-code{font-size:25px;font-weight:800;color:#007e79}
+.public-summary .quiet{font-size:12px;color:#738990}.plot-hint{margin:12px 0 0;color:#5d747c;font-size:12px}
+.own-pin{position:absolute;z-index:4;pointer-events:none;width:23px;height:23px;border-radius:50%;background:#007e79;border:3px solid white;box-shadow:0 1px 10px #1e3b4670;transform:translate(-50%,-50%);display:none}
+.own-pin.visible{display:block}
+@media(max-width:940px){.side{grid-template-columns:1fr}.detail{min-height:0}}
+@media(max-width:700px){.public-form,.public-summary{padding:16px}.send-options{flex-direction:column}.send-options .action{width:100%}}
+</style></head>
+<body><main>
+<header>
+<div class="eyebrow">Civil-military futures / US 2040</div>
+<h1>Where do you think America will be in 2040?</h1>
+<p>An early, deliberately informal thought experiment. This is partly about whether my own expectations are ordinary or unusual. It's about where you think the US <strong>will</strong> be, not where you hope it will be.</p>
+</header>
+<div class="layout">
+<section class="card chart-card" aria-label="US 2040 forecast chart">
+  <div class="card-heading"><span class="smallcaps">Strategic futures &middot; XY space</span><span class="mininote">Hover or tap to explore</span></div>
+  <div class="chart-area">
+    <div class="ytitle">STRATEGIC TENACITY &#8593;</div>
+    <div class="yends"><span>HIGH</span><span>LOW</span></div>
+    <div class="plot-wrap"><div class="plot" id="plot" aria-label="Chart: select the most likely US 2040 position"><div class="hitlayer" id="hitlayer"></div><div id="ownPin" class="own-pin" aria-hidden="true"></div></div>
+    <div class="xends"><span>LOW</span><span>HIGH</span></div><div class="xtitle">TRANSLUCENCE &#8594;</div></div>
+  </div>
+  <div class="axis-guide"><strong>Translucence:</strong> how extensively civilian and military institutions, relationships, and responsibilities overlap.<br/><strong>Strategic tenacity:</strong> sustained, adaptive pursuit of meaningful strategic objectives, not military spending, aggression, or military capability.</div>
+  <p class="plot-hint">Hover to explore possible futures. Click (or tap) to make your own selection. No previous answers are shown.</p>
+</section>
+<div class="side">
+  <aside class="card detail" id="detail" aria-live="polite">
+    <div class="smallcaps">Explore a scenario</div>
+    <p class="intro">Move around the chart to reveal each possible future and the agreed three-part description. On a phone, tap a position.</p>
+  </aside>
+  <section class="card public-form" aria-label="Your forecast response">
+    <h3>Tell me your prediction</h3>
+    <p class="form-sub">Pick the position that feels most likely. This is early-stage and a bit vibes-based &mdash; a sentence explaining your instinct is more valuable than false precision.</p>
+    <div class="field-stack">
+      <div><label for="code">Choose square</label><select id="code"><option value="">Select a square</option></select></div>
+      <div><label for="respondentDesc">Gender and job description (optional)</label><input type="text" id="respondentDesc" maxlength="120" placeholder="e.g., woman, teacher" /></div>
+      <div><label for="respondentNotes">Why this future? (optional)</label><textarea id="respondentNotes" maxlength="1000" placeholder="A thought or two about what you think will happen by 2040"></textarea></div>
+    </div>
+    <div class="send-options">
+      <a class="action secondary" id="emailAnswer" href="#">Email my answer</a>
+      <a class="action secondary" id="whatsAppAnswer" href="#" target="_blank" rel="noopener noreferrer">Send via WhatsApp</a>
+      <button class="action" id="copyAnswer" type="button">Copy my answer</button>
+    </div>
+    <p class="notice" id="shareNotice" role="status">Choose a square first. Sending is voluntary; nothing is transmitted automatically.</p>
+    <p class="hint">Email opens a draft in your email app; add the recipient if needed. WhatsApp opens a draft you can send to the person who shared this survey.</p>
+  </section>
+  <section class="card public-summary">
+    <h3>Your selection</h3>
+    <p class="selected-code" id="selectionText">Not selected yet</p>
+    <p id="selectionTitle">Click the chart or choose a square above.</p>
+    <p class="quiet">Only your selection appears here. The survey does not display anyone else's choices.</p>
+  </section>
+</div></div>
+<footer>Informal exploratory forecasting, not a scientific or representative survey. Please share a prediction and reasoning only if you're comfortable.</footer>
+</main>
+<script>
+
+const DATA={"A1":{"title":"High-Performing Sequestered Military","bullets":["A military community achieves extraordinary operational sophistication while remaining thoroughly distinct from wider society.","Military families and children develop distinctive identities.","The institution typically fulfils military missions brilliantly but may remain purposefully uninvolved in politics."]},"A2":{"title":"Closed and Resolute","bullets":["A relatively closed military is exceptionally capable and culturally distinct from wider society, sustaining demanding strategic efforts and adapting through setbacks.","Its institutional practices may strike outsiders as strange, alienating or even offensive.","The military is unwittingly detached from the realities of civilian life."]},"A3":{"title":"Purposeful Professional Military","bullets":["The military possesses a distinct professional identity and purpose alongside established relationships with wider society.","Military organizations demonstrate meaningful and effective determination in pursuing strategic objectives.","Civilian organizations contribute to defense through established political and commercial routes."]},"A4":{"title":"Defense as a Coordinated National Endeavor","bullets":["Civilian and military organizations share responsibility for national objectives, while the military and traditionally aligned bodies focus on the defense component of those objectives.","The defense ecosystem demonstrates meaningful determination in pursuing strategic objectives.","Public agencies, industry and civilian institutions routinely coordinate with Defense where civilian and military spheres intersect in pursuit of higher objectives."]},"A5":{"title":"Holistic Defense-Motivated Society","bullets":["Civilian and defense purposes are deeply and meaningfully intertwined.","Civilian organizations are highly conscious of the military outcomes of their decisions and accept substantial trade-offs to advance demanding defense objectives.","Unconventional individuals may be accommodated on condition of their contributions to the defense enterprise."]},"A6":{"title":"Thoroughly Orientated Society","bullets":["Virtually every social institution and mainstream collective initiative is aligned with a coherent defense-oriented strategy.","A shared purpose guides action across different levels of society without requiring constant micromanagement.","People and activities considered unconducive to national defense are highly likely to be reflexively marginalized or repurposed."]},"B1":{"title":"Distinct and Determined","bullets":["The military possesses a strongly defined professional and social identity, separate from civilian life.","Military organizations demonstrate meaningful determination in pursuing their objectives.","Relationships with civilian organizations and wider society operate through relatively narrow, established channels rather than a shared focus."]},"B2":{"title":"Purposeful and Defined","bullets":["The military possesses a distinct professional culture, with recruitment and social networks concentrated within, but not exclusive to, specific sections of society.","Military organizations demonstrate substantial determination.","Civilian and military communities share established relationships, although their identities, experiences and purposes are distinct."]},"B3":{"title":"Professional and Visible","bullets":["The military has a distinct professional identity, with recruitment and social relationships spanning different sections of society.","Military organizations demonstrate meaningful collective determination.","Civilian and military spheres share established interests and work together where they intersect, without possessing a common identity."]},"B4":{"title":"Defense as a Meaningful Component","bullets":["Civilian and military spheres possess distinct identities, with pragmatic interoperability across personnel, responsibilities and social relationships.","Defense is recognized as a component of civilian organizations and communities.","Civilian and military organizations sustain demanding defense commitments, adapting their contributions and accepting substantial trade-offs to pursue shared strategic objectives."]},"B5":{"title":"Integrated and Purposeful","bullets":["Civilian and military communities and outlooks overlap in professional and social life.","Military considerations feature in civilian activities, employment and cultural identity.","The wider defense ecosystem sustains substantial collective effort in pursuit of national objectives, adapting to setbacks and accepting significant trade-offs to maintain strategic momentum."]},"B6":{"title":"A Mobilized and Cohered Society","bullets":["Military service, defense ecosystems and national security responsibilities are familiar features of civilian life.","Civilian communities, businesses and public organizations routinely participate in national defense activities.","The defense ecosystem coordinates substantial national efforts and demonstrates the capacity to sustain them."]},"C1":{"title":"Worlds Apart and \"Good Enough\"","bullets":["Military service is concentrated within a self-contained community, with its own relationships, traditions and understanding of the nation.","Military organizations pursue their objectives competently and are broadly content with outcomes that are \"good enough.\"","Military communities share little social experience with wider society, and this separation defines much of their internal discourse."]},"C2":{"title":"Apart and Engaged","bullets":["Military service is concentrated within particular social communities, with limited connections to wider civilian life.","Military organizations are competent, practical and generally satisfied with achieving their assigned objectives.","Military and civilian communities possess different social outlooks but maintain familiar channels of interaction."]},"C3":{"title":"Bounded and Deliberate","bullets":["Military communities maintain distinct identities and experiences, but recruitment, family relationships and professional networks connect them to wider society.","Military organizations pursue objectives through agreed institutional practices.","Civilian organizations contribute to defense activities where their responsibilities and interests intersect with those of the military."]},"C4":{"title":"Cohered and Focused","bullets":["Civilian and military communities retain distinct identities, but their social networks, reference points and responsibilities overlap.","Defense considerations routinely inform decisions in civilian organizations without dominating their wider purposes.","Civilian and military organizations pursue agreed objectives through established coordination and deliberate institutional effort."]},"C5":{"title":"Interwoven and Dependable","bullets":["Military and civilian communities share extensive social relationships, experiences and professional interests, with defense obligations widely understood and practiced across society.","Civilian institutions routinely incorporate military considerations into their decisions alongside other economic, social and political priorities.","Civilian and military organizations maintain meaningful commitments to agreed defense objectives, directing sustained effort and resources towards them alongside competing national priorities."]},"C6":{"title":"Pervasive and In Motion","bullets":["Military service, defense responsibilities and associated social identities extend throughout virtually every section of society.","Defense considerations shape family life, education, employment and community activities, alongside other civilian purposes.","Society commits people and resources to selected defense objectives, but pursuing these objectives also serves to reaffirm collective identity and purpose, sometimes at the expense of efficiency."]},"D1":{"title":"Insular and Provincial","bullets":["Military personnel inhabit a self-contained social world, with distinctive identities, loyalties and experiences reaffirmed through their separation from wider society.","Military organizations maintain recognizable strategic objectives, but their willingness to commit effort and resources depends on whether a given problem set aligns with an entrenched and narrow self-image.","Internal debates reflect the priorities and assumptions of the military community, with relatively little reference to the experiences or expectations of wider society."]},"D2":{"title":"Separate and Predetermined","bullets":["Military careers and social relationships remain concentrated within particular communities, whose traditions and outlooks differ substantially from wider society.","Military organizations devote considerable attention to familiar missions and established institutional interests, while other strategic objectives attract less commitment.","Relationships with civilian society exist through established social and professional channels."]},"D3":{"title":"Adjacent and Particular","bullets":["Civilian and military communities occupy distinct spheres, overlapping on occasion through family relationships, recruitment, professional networks and shared interests.","Military organizations commit sustained effort to familiar objectives, while strategic demands that challenge established assumptions of purpose and tradition receive less attention.","Civilian organizations contribute to defense where their responsibilities intersect with those of the military, while retaining separate identities and priorities."]},"D4":{"title":"Connected and Conventional","bullets":["Civilian and military communities retain distinct identities, with established overlaps in social networks, experiences, reference points and responsibilities.","Defense is a familiar consideration within civilian organizations, and the two spheres cooperate routinely.","Civilian and military institutions sustain established defense commitments, although defense organizations may require skillful coaxing to pursue objectives that stray too far from established norms."]},"D5":{"title":"Entwined and Habitual","bullets":["Defense and civilian communities share extensive social relationships, experiences and identities, with defense obligations familiar across much of society.","Civilian organizations routinely participate in defense activities, although efforts by organizations with longstanding ties to defense are better received by the military and wider defense establishment.","Society commits considerable effort to defense objectives, while efforts that challenge established roles, expectations or priorities struggle to attract comparable receptiveness."]},"D6":{"title":"Pervasive and Distracted","bullets":["Defense institutions, identities and responsibilities are woven into virtually every section of society, shaping family life, employment and community expectations.","Civilian organizations and communities possess substantial interests in maintaining their established roles within the defense ecosystem.","Pressures to sustain society's way of life sometimes override strategic priorities in practice."]},"E1":{"title":"Sequestered in Stasis","bullets":["Military personnel inhabit an almost entirely separate social world, with their own communities, traditions and understanding of national affairs.","Military organizations retain genuine defense responsibilities, although preserving institutional autonomy and established privileges commands far greater commitment than many strategic objectives.","Internal recognition and standing matter considerably, with professional reputations shaped more by the expectations of the military community than by wider national requirements."]},"E2":{"title":"Insulated and Self-Referential","bullets":["Military recruitment, careers and social relationships remain concentrated within particular communities, whose identities and traditions are largely distinct from civilian society.","Military organizations devote considerable energy to internal priorities, professional recognition and established activities, with limited connection to national strategic priorities.","Civilian and military communities maintain opaque relationships, with internal military expectations carrying greater weight than the perspectives of wider society."]},"E3":{"title":"Distinct and Preoccupied","bullets":["Civilian and military communities occupy largely distinct spheres, with occasional overlap through family relationships, shared experiences and shared professional spaces.","Military organizations devote substantial attention to established duties, internal concerns and familiar activities, often at the expense of wider strategic objectives.","Civilian organizations contribute to defense through recognized areas of shared responsibility, although their perspectives seldom influence the military's established priorities."]},"E4":{"title":"Connected and Complacent","bullets":["Civilian and military communities retain distinct identities, although their social relationships, experiences and responsibilities overlap in established areas.","Civilian organizations regard defense as a familiar responsibility, with cooperation between the two spheres forming part of ordinary institutional and community life.","The defense ecosystem maintains established commitments, with relatively little collective appetite for questioning whether these activities serve meaningful strategic objectives."]},"E5":{"title":"Embedded and Customary","bullets":["Defense-related identities, employment and responsibilities are deeply embedded in civilian communities, institutions and everyday life.","Participation in the defense ecosystem provides social standing, livelihoods and shared purpose across a wide range of civilian organizations.","Meaningful effort is devoted to sustaining established defense activities, rituals and social hierarchies, even where their contribution to national strategic objectives is limited."]},"E6":{"title":"Pervasive and Ritualized","bullets":["Defense identities, obligations and institutions permeate virtually every section of society, shaping education, employment, family relationships and community life.","Participation in the defense ecosystem provides a widely shared sense of belonging, with ceremonies, established roles and collective traditions holding considerable social significance.","The defense ecosystem dedicates substantial effort to sustaining these social functions, while comparatively little collective commitment is directed towards unfamiliar or demanding strategic objectives."]},"F1":{"title":"A Fusty Military","bullets":["A self-referential, largely hereditary community possesses distinct traditions but has drifted away from warfighting as its focus.","Civilians view it as peculiar, though they may be unaware of its limitations or may regard it with open contempt.","Prominent internal disputes are sectarian and insular."]},"F2":{"title":"Self-Absorbed Military","bullets":["Family and social networks strongly influence military recruitment and careers.","Internal disputes centre on titles, cultural norms and institutional interests rather than warfighting priorities.","Government and society may value the institution for international legitimacy or as a foundation for abrupt reform in a crisis."]},"F3":{"title":"Distinct and Symbolic","bullets":["Civilian and military communities retain separate identities, with occasional overlap through shared professional spaces, family relationships and social traditions.","Military institutions possess recognizable roles and considerable symbolic importance, although warfighting and strategic objectives attract little sustained collective effort.","Civilian organizations maintain relationships with the military through commemorations, established responsibilities and shared interests, often emphasizing the social significance of defense over its strategic contribution."]},"F4":{"title":"Cooperative and Ceremonial","bullets":["Civilian and military communities maintain distinct identities, with substantial overlap in social relationships, professional activities and shared traditions.","Civilian organizations participate in defense activities, with considerable emphasis on public recognition, ceremonial responsibilities and institutional relationships.","The defense ecosystem dedicates substantial effort to maintaining its social standing and established practices, while practical military requirements and strategic objectives receive little sustained attention."]},"F5":{"title":"A Pugnacious Society","bullets":["Popular culture celebrates the military and aesthetics associated with martial valour. Celebrated military figures and units, such as special forces, are cultural tastemakers, influencing fashion and habits.","Defense-associated occupations, communities and institutions are widespread, with civilian organizations routinely contributing people and resources to military activities.","Defense organizations can be perceived as bloated, struggle to cultivate useful skills and do not prioritize less glamorous military requirements such as logistics, command, endurance and sustained operations."]},"F6":{"title":"Martial Posturing State","bullets":["A culturally defining number of people with varying abilities are employed across a largely performative defense ecosystem.","Military affiliations and identities shape family life, education, employment and community organizations across virtually every section of society.","Despite a martial culture, the society cannot adequately conduct warfare."]}};
+const ROWS='ABCDEF';
+const IDS=Object.keys(DATA);
+const $=(id)=>document.getElementById(id);
+const els={layer:$('hitlayer'), detail:$('detail'), pin:$('ownPin'), code:$('code'), desc:$('respondentDesc'), notes:$('respondentNotes'), selectionText:$('selectionText'), selectionTitle:$('selectionTitle'), email:$('emailAnswer'), wa:$('whatsAppAnswer'), copy:$('copyAnswer'), notice:$('shareNotice')};
+let selection='';
+function elem(tag, className, content){const e=document.createElement(tag); if(className)e.className=className; if(content!==undefined)e.textContent=content; return e;}
+function showDetails(code){
+  els.detail.replaceChildren(elem('div','smallcaps','Explore a scenario'));
+  if(!code){els.detail.append(elem('p','intro','Hover over the chart to explore the different futures. Choose your forecast by clicking or tapping a position.'));return;}
+  const item=DATA[code];
+  els.detail.append(elem('h2','',item.title),elem('p','meta','SQUARE '+code+' / ROW '+code[0]+' / COLUMN '+code[1]));
+  const list=elem('ol');item.bullets.forEach(b=>list.append(elem('li','',b)));els.detail.append(list);
+}
+function makeMessage(){
+  const job=els.desc.value.trim() || 'Not provided';
+  const notes=els.notes.value.trim() || 'Not provided';
+  return [
+   'My forecast for the United States in 2040',
+   '',
+   'Square: '+selection,
+   'Gender and job: '+job,
+   'Reasoning / additional notes: '+notes,
+   '',
+   'An informal, early-stage exploration of possible US civil-military futures.'
+  ].join('\n');
+}
+function updateShareTargets(){
+  if(!selection){els.email.href='#';els.wa.href='#';return;}
+  const subject=encodeURIComponent('My US 2040 prediction: '+selection);
+  const body=encodeURIComponent(makeMessage());
+  // No collector email has been supplied; the respondent chooses an email recipient.
+  els.email.href='mailto:?subject='+subject+'&body='+body;
+  els.wa.href='https://api.whatsapp.com/send?text='+encodeURIComponent(makeMessage());
+}
+function choose(code){
+  if(!IDS.includes(code))return;
+  selection=code;
+  els.code.value=code;
+  const row=ROWS.indexOf(code[0]),col=Number(code[1])-1;
+  els.pin.style.left=(((col+.5)/6)*100)+'%';
+  els.pin.style.top=(((row+.5)/6)*100)+'%';
+  els.pin.classList.add('visible');
+  els.selectionText.textContent=code;
+  els.selectionTitle.textContent='Your chosen scenario: '+DATA[code].title;
+  els.notice.textContent='Selected '+code+'. Share your choice when you are ready.';
+  updateShareTargets();
+  showDetails(code);
+}
+for(let r=0;r<6;r++)for(let c=1;c<=6;c++){
+  const code=ROWS[r]+c;
+  const region=elem('button','region');region.type='button';region.dataset.code=code;
+  region.setAttribute('aria-label','Select '+code+': '+DATA[code].title);
+  region.addEventListener('mouseenter',()=>showDetails(code));
+  region.addEventListener('mouseleave',()=>showDetails(null));
+  region.addEventListener('focus',()=>showDetails(code));
+  region.addEventListener('click',()=>choose(code));
+  region.addEventListener('keydown',(event)=>{
+    let nr=r,nc=c;
+    if(event.key==='ArrowUp')nr=Math.max(0,r-1);
+    else if(event.key==='ArrowDown')nr=Math.min(5,r+1);
+    else if(event.key==='ArrowLeft')nc=Math.max(1,c-1);
+    else if(event.key==='ArrowRight')nc=Math.min(6,c+1);
+    else return;
+    els.layer.querySelector('[data-code="'+ROWS[nr]+nc+'"]').focus();event.preventDefault();
+  });
+  els.layer.append(region);
+  const opt=elem('option','',code);opt.value=code;els.code.append(opt);
+}
+els.code.addEventListener('change',()=>{
+  if(IDS.includes(els.code.value))choose(els.code.value);
+  else{selection='';els.pin.classList.remove('visible');els.selectionText.textContent='Not selected yet';els.selectionTitle.textContent='Click the chart or choose a square above.';updateShareTargets();showDetails(null);}
+});
+els.desc.addEventListener('input',updateShareTargets);
+els.notes.addEventListener('input',updateShareTargets);
+[els.email,els.wa].forEach(a=>a.addEventListener('click',ev=>{
+  if(!selection){ev.preventDefault();els.notice.textContent='Choose a square first.';}
+}));
+els.copy.addEventListener('click',async()=>{
+  if(!selection){els.notice.textContent='Choose a square first.';return;}
+  const message=makeMessage();
+  try{
+    if(!navigator.clipboard || !navigator.clipboard.writeText)throw Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(message);els.notice.textContent='Copied your answer. Paste it into a message to the person who sent you the link.';
+  }catch(_){
+    const t=elem('textarea');t.value=message;document.body.append(t);t.focus();t.select();
+    const success=document.execCommand('copy');t.remove();
+    if(success)els.notice.textContent='Copied your answer. Paste it into a message.';
+    else {els.notice.textContent='Select and copy the text in the box below.';const ta=elem('textarea');ta.value=message;ta.readOnly=true;ta.style.width='100%';ta.style.minHeight='130px';els.notice.after(ta);ta.focus();ta.select();}
+  }
+});
+showDetails(null);updateShareTargets();
+
+</script></body></html>
