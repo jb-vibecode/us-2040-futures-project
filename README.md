@@ -9,3 +9,4 @@ Strategic Tenacity: How effectively a society sustains and adapts collective eff
 This is an early, exploratory exercise. 
 
 Please don't fight the white one this.
+Message Joe for further details. 
